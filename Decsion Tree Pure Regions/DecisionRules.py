@@ -4,10 +4,19 @@ from sklearn import tree
 def Tree_path(tree,samples):
 
     '''
-    takes tree , pure samples as inputs, could also be not pure samples
+    inputs:
     
-    returns a list of dictionaries, where key means feature no[0-means-->sample[i][0]], values means condition with thresholds
-    one after another
+    takes tree (best estimated one, if GridSearchCV has been used),
+    pure samples as inputs, could also be not pure samples
+    
+    outputs:
+    
+    returns a list of dictionaries, where, keys mean feature no[0-means-->sample[i][0], where i is any sample no],
+    values mean condition followed by thresholds, one after another condition and thresholds are added in dictionary values
+    
+    i'th dictionary in dictionary list represents a unique rule.
+    
+    uncomment prints to see it in action.
 
     '''
 
@@ -31,7 +40,7 @@ def Tree_path(tree,samples):
         indexes=decision_paths.indices[decision_paths.indptr[sample_id]:\
                                       decision_paths.indptr[sample_id+1]]
         
-        print('sample id: ',sample_id)
+        #print('sample id: ',sample_id)
         
         comparator=''
         
@@ -58,13 +67,13 @@ def Tree_path(tree,samples):
             else:
                 comparator=">"
             
-            print("X_test[%s,%s]  %s %s "%(sample_id,feature[node_id],comparator,threshold[node_id]) )
+            #print("X_test[%s,%s]  %s %s "%(sample_id,feature[node_id],comparator,threshold[node_id]) )
             
             d[feature[node_id]].append(comparator)
             d[feature[node_id]].append(threshold[node_id])
             
     
-    print(dic)  
+    #print(dic)  
   
     
     return dic
