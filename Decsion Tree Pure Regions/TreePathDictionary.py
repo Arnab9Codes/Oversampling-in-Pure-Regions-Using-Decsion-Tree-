@@ -40,9 +40,11 @@ def sample_generation_dictionary(dic,X_train):
 	Each dictionary in gen_dic_list represents a dicitonary.
 	for each key representing a list of values
 
-	1st value means (greater than equal to--->value)
-	2nd value means (less than--------->value)
-
+	1st value means (greater than------------------>value)
+	2nd value means (less than or equal to--------->value)
+	
+	for example:
+	
 	[5,6]--means greater than 5 and less than or equal to 6
 
 	'''
@@ -89,17 +91,8 @@ def sample_generation_dictionary(dic,X_train):
     #print("sample generation dictionnary: \n")
     #for i in range(len(gen_dic_list)):
         #print(gen_dic_list[i])
-
-
-
-
-
     
     return gen_dic_list
-
-
-
-    
 
 
 
