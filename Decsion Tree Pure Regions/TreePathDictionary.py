@@ -5,14 +5,14 @@ def sample_generation_dictionary(dic,X_train):
 
 
     '''
-	inputs:
+    inputs:
 
-	take dictionary generated from Tree_path function
-	and X_train
+    take dictionary generated from Tree_path function
+    and X_train
 
-	ouputs:
+    ouputs:
 
-	simplified dictionary list for sample generation
+    simplified dictionary list for sample generation
 
     '''
     
@@ -36,18 +36,18 @@ def sample_generation_dictionary(dic,X_train):
     
     gen_dic_list=[]#simplified dictionary generated from dic for sample generation
 
-	'''
-	Each dictionary in gen_dic_list represents a dicitonary.
-	for each key representing a list of values
+    '''
+    Each dictionary in gen_dic_list represents a dicitonary.
+    for each key representing a list of values
 
-	1st value means (greater than------------------>value)
-	2nd value means (less than or equal to--------->value)
+    1st value means (greater than------------------>value)
+    2nd value means (less than or equal to--------->value)
 	
-	for example:
+    for example:
 	
-	[5,6]--means greater than 5 and less than or equal to 6
+    [5,6]--means greater than 5 and less than or equal to 6
 
-	'''
+    '''
     
     for i in range(0,len(dic),1):
         
