@@ -92,7 +92,7 @@ def sample_generation_dictionary(dic,X_train):
     #for i in range(len(gen_dic_list)):
         #print(gen_dic_list[i])
     
-    return gen_dic_list
+    return min_max_dic,gen_dic_list
 
 
 
