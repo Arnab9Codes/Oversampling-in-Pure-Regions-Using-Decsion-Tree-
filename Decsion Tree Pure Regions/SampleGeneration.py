@@ -11,6 +11,8 @@ def gen_samples(gen_dic_list,min_max_dic,X_train,number,target_class=None):
     X_train,
     Number of samples to be generated for each rule in gen_dic_list
     
+    target_class-has not been used yet, but will be used later
+    
     Outputs:
     
     generated samples
