@@ -53,7 +53,7 @@ def Tree_path(tree,samples):
                 
                 d.pop(feature[node_id],None)
                 
-                print(d)
+                #print(d)
                 
                 if d not in dic:
                     dic.append(d)

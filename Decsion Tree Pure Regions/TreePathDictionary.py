@@ -95,5 +95,3 @@ def sample_generation_dictionary(dic,X_train):
     return min_max_dic,gen_dic_list
 
 
-
-

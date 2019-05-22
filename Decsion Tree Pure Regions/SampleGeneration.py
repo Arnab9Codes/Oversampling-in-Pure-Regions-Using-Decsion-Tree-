@@ -43,7 +43,7 @@ def gen_samples(gen_dic_list,min_max_dic,X_train,number,target_class=None):
         
         for n in range(0,number,1):
         
-            sample_vector=np.zeros(c)
+            sample_vector=[0 for x in range(0,c,1)]
         
             
             for k in range(0,len(sample_vector),1):
@@ -62,4 +62,5 @@ def gen_samples(gen_dic_list,min_max_dic,X_train,number,target_class=None):
         
     #print(generated_samples)
     
-    return generated_samples
+    return np.array(generated_samples)
+
