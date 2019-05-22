@@ -40,15 +40,10 @@ def sample_generation_dictionary(dic,X_train):
 	Each dictionary in gen_dic_list represents a dicitonary.
 	for each key representing a list of values
 
-	1st value means (less than equal to--->value)
-	2nd value means (greater than--------->value)
+	1st value means (greater than equal to--->value)
+	2nd value means (less than--------->value)
 
-	_  means no value of that respective position,
-	do not consider that posision.
-
-	[5,6]--> means less than equal to 5, greater than 6
-	[_,5.5]-->means only greater than 5.5 condition exists, no less that equal to exists
-	[5.5,_]-->means the inverse of previous statement
+	[5,6]--means greater than 5 and less than or equal to 6
 
 	'''
     
@@ -76,16 +71,17 @@ def sample_generation_dictionary(dic,X_train):
                     mn_list.append(all_list[j+1])
                 else:
                     mx_list.append(all_list[j+1])
-            if len(mn_list)!=0:
-                gen_dic_list[i][k].append(min(mn_list))#less than equal to smallest threshold
-            else:
-                gen_dic_list[i][k].append('_')
-                
+
             if len(mx_list)!=0:
                 gen_dic_list[i][k].append(max(mx_list))#greater than to largest threshold
             else:
-                gen_dic_list[i][k].append('_')
-            
+                gen_dic_list[i][k].append(min(min_max_dic[k]))
+
+            if len(mn_list)!=0:
+                gen_dic_list[i][k].append(min(mn_list))#less than equal to smallest threshold
+            else:
+                gen_dic_list[i][k].append(max(min_max_dic[k]))
+
             mn_list.clear()
             mx_list.clear()
     
@@ -99,7 +95,7 @@ def sample_generation_dictionary(dic,X_train):
 
 
     
-    return min_max_dic,gen_dic_list
+    return gen_dic_list
 
 
 
