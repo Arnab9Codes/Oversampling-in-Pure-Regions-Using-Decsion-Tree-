@@ -22,7 +22,6 @@ import TreePathDictionary
 import SampleGeneration
 import OverSampling
 
-
 def Classify(location_of_data,test_data_name,smote_or_not):
     
     # smote_or_not should be either True or False to denote if Oversampling is done or not
@@ -37,9 +36,9 @@ def Classify(location_of_data,test_data_name,smote_or_not):
         l=[]
 
         for FILE in files:
-            if ((FILE!=test_data_name) and (not(FILE.endswith('tst.dat'))) and ((FILE[len(FILE)-8])!=(test_data_name[len(test_data_name)-8])) ):
+            if ((FILE!=test_data_name) and (not(FILE.endswith('.tst'))) and ((FILE[len(FILE)-7])!=(test_data_name[len(test_data_name)-7])) ):
             
-                #print(FILE)
+                print(FILE)
                 df=pd.read_csv(location_of_data+FILE)#'../Data_tsai/NonSMOTE/glass0/glass0-5-fold/'
                 l.append(df)
      
@@ -48,6 +47,7 @@ def Classify(location_of_data,test_data_name,smote_or_not):
         data=np.array(df)
         
         X=data[:,:data.shape[1]-1]
+        print(X.shape)
         Y=data[:,data.shape[1]-1]
         
         test_data_X=test_data[:,:test_data.shape[1]-1]
@@ -61,9 +61,13 @@ def Classify(location_of_data,test_data_name,smote_or_not):
         tree_grid=GridSearchCV(tree,tree_params,scoring='accuracy',n_jobs=-1)
         tree_grid.fit(X,Y)
          
-        accuracy_score(test_data_Y,tree_grid.predict(test_data_Y))
+        accuracy=accuracy_score(test_data_Y,tree_grid.predict(test_data_X))
+        predictions=tree_grid.predict(test_data_X)
         
-        print(accuracy_score)
+        print(accuracy)
+        
+        return predictions
+        
     
     else:
         
@@ -88,6 +92,23 @@ def Classify(location_of_data,test_data_name,smote_or_not):
         test_data_X=test_data[:,:test_data.shape[1]-1]
         test_data_Y=test_data[:,test_data.shape[1]-1]
         
+        #--------------------------------------------------------------------------
+        tree_without_oversampling =DecisionTreeClassifier(random_state=9)
+
+        tree_params={'max_features':[x for x in range(1,X.shape[1],1)],
+                'max_depth':[x for x in range(1,64,1)]}
+
+        tree_grid_without_ovrsmpl=GridSearchCV(tree_without_oversampling,tree_params,scoring='accuracy',n_jobs=-1)
+        tree_grid_without_ovrsmpl.fit(X,Y)
+         
+        accuracy_without=accuracy_score(test_data_Y,tree_grid_without_ovrsmpl.predict(test_data_X))
+        
+        #y_test=tree_grid.predict(test_data)
+        #predictions=tree_grid.predict(test_data_X)
+        
+        print("without oversampling: ",accuracy_without)
+        #--------------------------------------------------------------------------
+        
         generated_samples=OverSampling.OverSampling(location_of_data,test_data_name)
         
         print(generated_samples.shape)
@@ -108,7 +129,9 @@ def Classify(location_of_data,test_data_name,smote_or_not):
         accuracy=accuracy_score(test_data_Y,tree_grid.predict(test_data_X))
         
         #y_test=tree_grid.predict(test_data)
+        predictions=tree_grid.predict(test_data_X)
         
-        print(accuracy)
+        print("with oversampling: ",accuracy)
         
+        return predictions
         
